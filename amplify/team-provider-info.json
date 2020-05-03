@@ -1,0 +1,15 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-instaapp-dev-235811-authRole",
+            "UnauthRoleArn": "arn:aws:iam::552530644070:role/amplify-instaapp-dev-235811-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::552530644070:role/amplify-instaapp-dev-235811-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-instaapp-dev-235811-deployment",
+            "UnauthRoleName": "amplify-instaapp-dev-235811-unauthRole",
+            "StackName": "amplify-instaapp-dev-235811",
+            "StackId": "arn:aws:cloudformation:us-west-2:552530644070:stack/amplify-instaapp-dev-235811/74968680-8d0b-11ea-befe-0a52752701a6",
+            "AmplifyAppId": "d3mkuvqkp8369x"
+        }
+    }
+}
