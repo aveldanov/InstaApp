@@ -9,12 +9,20 @@
 					"defaultAuthentication": {
 						"authenticationType": "API_KEY",
 						"apiKeyConfig": {
-							"description": "demo",
+							"description": "demokey",
 							"apiKeyExpirationDays": 7
 						}
 					}
 				}
 			}
+		}
+	},
+	"auth": {
+		"instaapp0ed9a4b3": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
 		}
 	}
 }

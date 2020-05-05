@@ -9,6 +9,10 @@ target 'InstaApp' do
 
 
     pod 'AWSAppSync'
+    
+    pod 'AWSMobileClient', '~> 2.13.0'      # Required dependency
+    pod 'AWSAuthUI', '~> 2.13.0'  # Optional dependency required to use drop-in UI
+    pod 'AWSUserPoolsSignIn', '~> 2.13.0'
 
 
 end
