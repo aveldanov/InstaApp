@@ -8,7 +8,7 @@ extension Todo {
     case id
     case name
     case description
-    case color
+    case userid
   }
   
   public static let keys = CodingKeys.self
@@ -23,7 +23,7 @@ extension Todo {
       .id(),
       .field(todo.name, is: .required, ofType: .string),
       .field(todo.description, is: .optional, ofType: .string),
-      .field(todo.color, is: .optional, ofType: .string)
+      .field(todo.userid, is: .optional, ofType: .string)
     )
     }
 }

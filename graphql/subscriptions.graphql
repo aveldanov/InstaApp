@@ -4,6 +4,7 @@ subscription OnCreateTodo {
     id
     name
     description
+    userid
   }
 }
 subscription OnUpdateTodo {
@@ -11,6 +12,7 @@ subscription OnUpdateTodo {
     id
     name
     description
+    userid
   }
 }
 subscription OnDeleteTodo {
@@ -18,5 +20,6 @@ subscription OnDeleteTodo {
     id
     name
     description
+    userid
   }
 }

@@ -5,7 +5,7 @@
 //  Created by Veldanov, Anton on 5/2/20.
 //  Copyright © 2020 Anton Veldanov. All rights reserved.
 //
-
+/*
 import UIKit
 import AWSAppSync
 import AWSMobileClient
@@ -59,7 +59,7 @@ class ViewController: UIViewController {
     // runQuery()
     
     
-//      addMutation()
+      addMutation()
     //    deleteMutation()
     
     //    updateMutation()
@@ -101,17 +101,11 @@ class ViewController: UIViewController {
 }
 
 
-
-
-
-
-
-
-
-
 extension ViewController{
   
-
+  
+  
+  
   func addMutation(){
     
     let userid = whoIsSignedIn()
@@ -131,6 +125,7 @@ extension ViewController{
     }
   }
   
+  
   func deleteMutation(id: GraphQLID){
     let mutationInput = DeleteTodoInput(id: id)
     appSyncClient?.perform(mutation: DeleteTodoMutation(input: mutationInput)) { (result, error) in
@@ -145,6 +140,8 @@ extension ViewController{
       print("Mutation complete.")
     }
   }
+  
+  
   
   func updateMutation(){
     let mutationInput = UpdateTodoInput(id: "7fc34130-a019-4504-b232-f98138f9b2ae", name: "Ivan: ", description: "odd")
@@ -161,6 +158,10 @@ extension ViewController{
     }
   }
   
+  
+  
+  
+  
   func runQuery(){
     appSyncClient?.fetch(query: ListTodosQuery(), cachePolicy: .returnCacheDataAndFetch) {(result, error) in
       if error != nil {
@@ -173,6 +174,7 @@ extension ViewController{
       result?.data?.listTodos?.items!.forEach { print(($0?.name)! + " " + ($0?.description)!)}
     }
   }
+  
   
   func getQuery(){
     do{
@@ -199,6 +201,10 @@ extension ViewController{
     
   }
   
+  
+  
+  
+  
   func stateTracking(){
     
     AWSMobileClient.default().addUserStateListener(self) { (currentState, info) in
@@ -222,6 +228,7 @@ extension ViewController{
     
     
   }
+  
   
   func signUpUser(){
     
@@ -255,7 +262,11 @@ extension ViewController{
         }
     }
   }
-
+  
+  
+  
+  
+  
   func verifyUser(){
     AWSMobileClient.default().confirmSignUp(username: "anton.veldanov@gmail.com", confirmationCode: "336228") { (signUpResult, error) in
       print("RESULT!!!", signUpResult)
@@ -263,6 +274,11 @@ extension ViewController{
     }
     
   }
+  
+  
+  
+  
+  
   
   func signInUser(){
     
@@ -286,6 +302,8 @@ extension ViewController{
     
   }
   
+  
+  
   func checkState(){
     
     switch( AWSMobileClient.default().currentUserState) {
@@ -303,6 +321,8 @@ extension ViewController{
         }
   }
   
+  
+  
   func signOut(){
     
     AWSMobileClient.default().signOut()
@@ -319,6 +339,10 @@ extension ViewController{
         return nil
     })  }
   
+  
+  
+  
+  
   func whoIsSignedIn()->String{
     
     let userid = AWSCognitoIdentityUserPool.default().currentUser()?.username ?? "No such user"
@@ -328,4 +352,4 @@ extension ViewController{
     return userid
   }
 }
-
+*/
