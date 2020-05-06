@@ -33,7 +33,9 @@ class ViewController: UIViewController {
   
   @IBOutlet weak var verifyButtonOutlet: UIButton!
   
-  @IBOutlet weak var confStatOutlet: UILabel!
+
+  
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -92,6 +94,12 @@ class ViewController: UIViewController {
         signUpUser(username: emailTextField.text!, password: passwordTextField.text!)
         
         
+      }else{
+        
+        
+        signInUser(username: emailTextField.text!, password: passwordTextField.text!)
+        
+        
       }
       
     }
@@ -113,6 +121,7 @@ class ViewController: UIViewController {
       switchSignupLoginButton.setTitle("SignUp", for: .normal)
       verifyCodeTextField.isHidden = true
       verifyButtonOutlet.isHidden = true
+      signOut()
     }else{
       signUpModeActive = true
       signUpOrLoginButton.setTitle("SignUp", for: .normal)
@@ -122,7 +131,7 @@ class ViewController: UIViewController {
       verifyCodeTextField.isHidden = false
       verifyButtonOutlet.isHidden = false
       
-      
+      signOut()
     }
   }
   
@@ -321,9 +330,9 @@ extension ViewController{
     }
   }
   
-  func signInUser(){
+  func signInUser(username:String, password: String){
     
-    AWSMobileClient.default().signIn(username: "anton.veldanov@gmail.com", password: "Abc@123!") { (signInResult, error) in
+    AWSMobileClient.default().signIn(username: username, password: password) { (signInResult, error) in
       print("RESULT:",signInResult)
       if let error = error  {
         print("\(error.localizedDescription)")

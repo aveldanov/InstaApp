@@ -78,20 +78,12 @@
                                     <action selector="verifyButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gP7-X7-ajv"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Confirmation Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UQW-kX-y9U">
-                                <rect key="frame" x="131" y="407" width="153" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="uH7-f9-6El"/>
                     <connections>
-                        <outlet property="confStatOutlet" destination="UQW-kX-y9U" id="lrs-pf-Oas"/>
                         <outlet property="emailTextField" destination="n7l-tO-Y1s" id="MAl-pt-XEu"/>
                         <outlet property="passwordTextField" destination="Wgb-Ta-DQk" id="FoH-h9-wwT"/>
                         <outlet property="signUpOrLoginButton" destination="QpU-gs-c3Q" id="cWo-7C-rrx"/>
