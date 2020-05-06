@@ -23,43 +23,51 @@ class ViewController: UIViewController {
   
   @IBOutlet weak var passwordTextField: UITextField!
   
+  @IBOutlet weak var verifyCodeTextField: UITextField!
+  
+  
   @IBOutlet weak var signUpOrLoginButton: UIButton!
   
   @IBOutlet weak var switchSignupLoginButton: UIButton!
+  
+  
+  @IBOutlet weak var verifyButtonOutlet: UIButton!
+  
+  @IBOutlet weak var confStatOutlet: UILabel!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     appSyncClient = appDelegate.appSyncClient
     
-
-//    AWSMobileClient.default().showSignIn(
-//        navigationController: self.navigationController!, { (signInState, error) in
-//        if let signInState = signInState {
-//            print("Sign in flow completed: \(signInState)")
-//        } else if let error = error {
-//            print("error logging in: \(error.localizedDescription)")
-//        }
-//    })
     
-//    print(whoIsSignedIn())
-//    signOut()
-  
-//    signUpUser()
-//    verifyUser()
+    //    AWSMobileClient.default().showSignIn(
+    //        navigationController: self.navigationController!, { (signInState, error) in
+    //        if let signInState = signInState {
+    //            print("Sign in flow completed: \(signInState)")
+    //        } else if let error = error {
+    //            print("error logging in: \(error.localizedDescription)")
+    //        }
+    //    })
     
-//    stateTracking()
+    //    print(whoIsSignedIn())
+    //        signOut()
     
-//    signInUser()
+    //    signUpUser()
+    //    verifyUser()
     
-//    deleteUser()
+    //    stateTracking()
+    
+    //    signInUser()
+    
+    //    deleteUser()
     
     
     
     // runQuery()
     
     
-//      addMutation()
+    //      addMutation()
     //    deleteMutation()
     
     //    updateMutation()
@@ -72,6 +80,26 @@ class ViewController: UIViewController {
   
   
   @IBAction func signUpLoginButtonPressed(_ sender: UIButton) {
+    
+    
+    if emailTextField.text == "" || passwordTextField.text == ""{
+      
+      displayAlert(title: "Error in the form", message: "Fill in email and password")
+    }else{
+      if signUpModeActive{
+        print("Signing up...")
+        
+        signUpUser(username: emailTextField.text!, password: passwordTextField.text!)
+        
+        
+      }
+      
+    }
+    
+    
+    
+    
+    
   }
   
   
@@ -83,17 +111,30 @@ class ViewController: UIViewController {
       signUpOrLoginButton.setTitle("Login", for: .normal)
       
       switchSignupLoginButton.setTitle("SignUp", for: .normal)
-      
+      verifyCodeTextField.isHidden = true
+      verifyButtonOutlet.isHidden = true
     }else{
       signUpModeActive = true
       signUpOrLoginButton.setTitle("SignUp", for: .normal)
       
       switchSignupLoginButton.setTitle("Login", for: .normal)
       
+      verifyCodeTextField.isHidden = false
+      verifyButtonOutlet.isHidden = false
+      
       
     }
   }
   
+  
+  
+  
+  @IBAction func verifyButtonPressed(_ sender: UIButton) {
+    
+    verifyUser(username: emailTextField.text!, confirmationCode: verifyCodeTextField.text!)
+    
+    
+  }
   
   
   
@@ -111,13 +152,13 @@ class ViewController: UIViewController {
 
 extension ViewController{
   
-
+  
   func addMutation(){
     
     let userid = whoIsSignedIn()
     
-   let mutationInput = CreateTodoInput(name: "JOHNNY", description: "NEW", userid: userid)
-//    let mutationInput = CreateTodoInput(name: "Anton3: ", description:"Desc3")
+    let mutationInput = CreateTodoInput(name: "JOHNNY", description: "NEW", userid: userid)
+    //    let mutationInput = CreateTodoInput(name: "Anton3: ", description:"Desc3")
     appSyncClient?.perform(mutation: CreateTodoMutation(input: mutationInput)) { (result, error) in
       if let error = error as? AWSAppSyncClientError {
         print("Error occurred: \(error.localizedDescription )")
@@ -204,82 +245,98 @@ extension ViewController{
     AWSMobileClient.default().addUserStateListener(self) { (currentState, info) in
       
       switch (currentState) {
-          
-        case .guest:
-            print("user is in guest mode.")
-        case .signedOut:
-            print("user signed out")
-        case .signedIn:
-            print("user is signed in.")
-        case .signedOutUserPoolsTokenInvalid:
-            print("need to login again.")
-        case .signedOutFederatedTokensInvalid:
-            print("user logged in via federation, but currently needs new tokens")
-        default:
-            print("unsupported")
-        }
+        
+      case .guest:
+        print("user is in guest mode.")
+      case .signedOut:
+        print("user signed out")
+      case .signedIn:
+        print("user is signed in.")
+      case .signedOutUserPoolsTokenInvalid:
+        print("need to login again.")
+      case .signedOutFederatedTokensInvalid:
+        print("user logged in via federation, but currently needs new tokens")
+      default:
+        print("unsupported")
+      }
     }
     
     
   }
   
-  func signUpUser(){
+  func signUpUser(username: String, password:String){
+    //    "Abc@123!"
     
-    AWSMobileClient.default().signUp(username: "anton.veldanov@gmail.com",
-                                            password: "Abc@123!",
-                                            userAttributes: ["email":"anton.veldanov@gmail.com", "phone_number": "+1973123456"]) { (signUpResult, error) in
-                                              
-                                              print(signUpResult)
-        if let signUpResult = signUpResult {
-          print("RESULT:",signUpResult)
-            switch(signUpResult.signUpConfirmationState) {
-            case .confirmed:
-                print("User is signed up and confirmed.")
-            case .unconfirmed:
-                print("User is not confirmed and needs verification via \(signUpResult.codeDeliveryDetails!.deliveryMedium) sent at \(signUpResult.codeDeliveryDetails!.destination!)")
-            case .unknown:
-                print("Unexpected case")
-            }
-        } else if let error = error {
-          print("RESULT:",signUpResult)
-
-            if let error = error as? AWSMobileClientError {
-                switch(error) {
-                case .usernameExists(let message):
-                    print(message)
-                default:
-                    break
-                }
-            }
-            print("\(error.localizedDescription)")
-        }
+    
+    AWSMobileClient.default().signUp(username: username,
+                                     password:password ) { (signUpResult, error) in
+                                      
+                                      print(signUpResult)
+                                      if let signUpResult = signUpResult {
+                                        print("RESULT:",signUpResult)
+                                        switch(signUpResult.signUpConfirmationState) {
+                                        case .confirmed:
+                                          print("User is signed up and confirmed.")
+                                        case .unconfirmed:
+                                          print("User is not confirmed and needs verification via \(signUpResult.codeDeliveryDetails!.deliveryMedium) sent at \(signUpResult.codeDeliveryDetails!.destination!)")
+                                        case .unknown:
+                                          print("Unexpected case")
+                                        }
+                                      } else if let error = error {
+                                        print("RESULT:",signUpResult)
+                                        
+                                        if let error = error as? AWSMobileClientError {
+                                          switch(error) {
+                                          case .usernameExists(let message):
+                                            print(message)
+                                          default:
+                                            break
+                                          }
+                                        }
+                                        print("\(error.localizedDescription)")
+                                      }
     }
   }
-
-  func verifyUser(){
-    AWSMobileClient.default().confirmSignUp(username: "anton.veldanov@gmail.com", confirmationCode: "336228") { (signUpResult, error) in
-      print("RESULT!!!", signUpResult)
-      
-    }
+  
+  func verifyUser(username: String, confirmationCode:String){
     
+    
+    AWSMobileClient.default().confirmSignUp(username: username, confirmationCode: confirmationCode) { (signUpResult, error) in
+      //      print("RESULT!!!", signUpResult?.signUpConfirmationState.self)
+      
+      if signUpResult?.signUpConfirmationState == .confirmed{
+        print("confirmedYO")
+        DispatchQueue.main.async {
+          self.displayAlert(title: "Bingo", message: "Your code verified")
+          
+        }
+      }else{
+        DispatchQueue.main.async {
+          self.displayAlert(title: "Error", message: "Please check the code")
+          
+        }
+        
+        
+      }
+    }
   }
   
   func signInUser(){
     
     AWSMobileClient.default().signIn(username: "anton.veldanov@gmail.com", password: "Abc@123!") { (signInResult, error) in
       print("RESULT:",signInResult)
-        if let error = error  {
-            print("\(error.localizedDescription)")
-        } else if let signInResult = signInResult {
-            switch (signInResult.signInState) {
-            case .signedIn:
-                print("User is signed in.")
-            case .smsMFA:
-                print("SMS message sent to \(signInResult.codeDetails!.destination!)")
-            default:
-                print("Sign In needs info which is not et supported.")
-            }
+      if let error = error  {
+        print("\(error.localizedDescription)")
+      } else if let signInResult = signInResult {
+        switch (signInResult.signInState) {
+        case .signedIn:
+          print("User is signed in.")
+        case .smsMFA:
+          print("SMS message sent to \(signInResult.codeDetails!.destination!)")
+        default:
+          print("Sign In needs info which is not et supported.")
         }
+      }
     }
     
     
@@ -289,18 +346,18 @@ extension ViewController{
   func checkState(){
     
     switch( AWSMobileClient.default().currentUserState) {
-        case .signedIn:
-            DispatchQueue.main.async {
-              
-                print("Logged In")
-            }
-        case .signedOut:
-            DispatchQueue.main.async {
-                print("Signed Out")
-            }
-        default:
-            AWSMobileClient.default().signOut()
-        }
+    case .signedIn:
+      DispatchQueue.main.async {
+        
+        print("Logged In")
+      }
+    case .signedOut:
+      DispatchQueue.main.async {
+        print("Signed Out")
+      }
+    default:
+      AWSMobileClient.default().signOut()
+    }
   }
   
   func signOut(){
@@ -310,22 +367,37 @@ extension ViewController{
   
   func deleteUser(){
     AWSCognitoIdentityUserPool.default().currentUser()?.delete().continueWith(block: { (task) -> Any? in
-        if let error = task.error {
-            print("Error deleting user: \(error.localizedDescription)")
-        }
-        if let _ = task.result {
-            print("User deleted successfully.")
-        }
-        return nil
+      if let error = task.error {
+        print("Error deleting user: \(error.localizedDescription)")
+      }
+      if let _ = task.result {
+        print("User deleted successfully.")
+      }
+      return nil
     })  }
   
   func whoIsSignedIn()->String{
     
     let userid = AWSCognitoIdentityUserPool.default().currentUser()?.username ?? "No such user"
-  
-  
+    
+    
     
     return userid
   }
+  
+  
+  func displayAlert(title: String, message:String){
+    
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+      self.dismiss(animated: true, completion: nil)
+    }))
+    
+    present(alert, animated: true, completion: nil)
+    
+    
+  }
+  
+  
 }
 

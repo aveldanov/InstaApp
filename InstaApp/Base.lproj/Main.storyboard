@@ -64,16 +64,40 @@
                                     <action selector="switchLoginModeButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kln-YQ-oxA"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F2A-ZC-x9A">
+                                <rect key="frame" x="20" y="436" width="374" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w64-Ij-ivl">
+                                <rect key="frame" x="139" y="494" width="137" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Verify Code"/>
+                                <connections>
+                                    <action selector="verifyButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gP7-X7-ajv"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Confirmation Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UQW-kX-y9U">
+                                <rect key="frame" x="131" y="407" width="153" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="uH7-f9-6El"/>
                     <connections>
+                        <outlet property="confStatOutlet" destination="UQW-kX-y9U" id="lrs-pf-Oas"/>
                         <outlet property="emailTextField" destination="n7l-tO-Y1s" id="MAl-pt-XEu"/>
                         <outlet property="passwordTextField" destination="Wgb-Ta-DQk" id="FoH-h9-wwT"/>
                         <outlet property="signUpOrLoginButton" destination="QpU-gs-c3Q" id="cWo-7C-rrx"/>
                         <outlet property="switchSignupLoginButton" destination="TAc-ep-iCZ" id="Jny-Jp-7x2"/>
+                        <outlet property="verifyButtonOutlet" destination="w64-Ij-ivl" id="ypp-ze-e4R"/>
+                        <outlet property="verifyCodeTextField" destination="F2A-ZC-x9A" id="vAK-iJ-5sr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
