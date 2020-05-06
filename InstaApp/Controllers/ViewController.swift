@@ -11,7 +11,11 @@ import AWSAppSync
 import AWSMobileClient
 
 
-class ViewController: UIViewController {
+
+
+
+
+class ViewController: UIViewController{
   
   //Reference AppSync client
   var appSyncClient: AWSAppSyncClient?
@@ -81,6 +85,27 @@ class ViewController: UIViewController {
   }
   
   
+    
+  
+  override func viewDidAppear(_ animated: Bool) {
+    
+    
+    if whoIsSignedIn() != ""{
+      print("There is a signedIn user")
+      self.performSegue(withIdentifier: "showUserTable", sender: self)
+
+
+    }
+    
+
+    
+    
+  }
+  
+  
+  
+  
+  
   @IBAction func signUpLoginButtonPressed(_ sender: UIButton) {
     
     
@@ -93,12 +118,13 @@ class ViewController: UIViewController {
         
         signUpUser(username: emailTextField.text!, password: passwordTextField.text!)
         
-        
+        self.performSegue(withIdentifier: "showUserTable", sender: self)
       }else{
         
         
         signInUser(username: emailTextField.text!, password: passwordTextField.text!)
-        
+        self.performSegue(withIdentifier: "showUserTable", sender: self)
+
         
       }
       
@@ -121,7 +147,7 @@ class ViewController: UIViewController {
       switchSignupLoginButton.setTitle("SignUp", for: .normal)
       verifyCodeTextField.isHidden = true
       verifyButtonOutlet.isHidden = true
-      signOut()
+      signOutUser()
     }else{
       signUpModeActive = true
       signUpOrLoginButton.setTitle("SignUp", for: .normal)
@@ -131,7 +157,7 @@ class ViewController: UIViewController {
       verifyCodeTextField.isHidden = false
       verifyButtonOutlet.isHidden = false
       
-      signOut()
+      signOutUser()
     }
   }
   
@@ -369,9 +395,10 @@ extension ViewController{
     }
   }
   
-  func signOut(){
+  func signOutUser(){
     
     AWSMobileClient.default().signOut()
+    print("SignOut Called!")
   }
   
   func deleteUser(){
@@ -387,7 +414,7 @@ extension ViewController{
   
   func whoIsSignedIn()->String{
     
-    let userid = AWSCognitoIdentityUserPool.default().currentUser()?.username ?? "No such user"
+    let userid = AWSCognitoIdentityUserPool.default().currentUser()?.username ?? ""
     
     
     
