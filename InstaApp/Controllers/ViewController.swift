@@ -69,8 +69,8 @@ class ViewController: UIViewController{
     //    deleteUser()
     
     
-    
-    // runQuery()
+//    runUserList()
+//     print(runQuery())
     
     
     //      addMutation()
@@ -98,6 +98,7 @@ class ViewController: UIViewController{
     }
     
 
+    navigationController?.navigationBar.isHidden = true
     
     
   }
@@ -433,6 +434,10 @@ extension ViewController{
     
     
   }
+  
+  
+  
+
   
   
 }
